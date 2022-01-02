@@ -49,7 +49,7 @@ export default class Profile extends Component {
       .database()
       .ref('users/' + firebase.auth().currentUser.uid)
       .update({
-        current_theme: 'light',
+        current_theme: !this.state.light_theme ? "dark" : 'light',
       });
 
     this.setState({ light_theme: !this.state.light_theme });
