@@ -109,7 +109,8 @@ export default class Feed extends Component {
                 borderWidth: 2,
               }}
               labelStyle={{ color: 'white', fontFamily: 'bubbleGum-sans' }}
-              
+               style={{ backgroundColor: "transparent" }}
+               
               onChangeItem={(item) =>
                 this.setState({ previewImage: item.value })
               }
