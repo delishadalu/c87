@@ -72,7 +72,7 @@ export default class Profile extends Component {
           source={{ uri: this.state.profile_image }}
         />
         <Text style={{marginTop:50,fontSize:40,fontFamily:'bubblegum-sans'}}>{this.state.name}</Text>
-         <Text>{this.state.light_theme?"light theme" : "dark theme"}</Text>
+         <Text>DARK THEME</Text>
         <Switch
           style={{marginTop:50, transform: [{ scaleX: 2 }, { scaleY: 2 }] }}
           trackColor={{ false: '#767577', true: 'gray' }}
