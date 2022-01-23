@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View,StyleSheet,Image,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import * as Google from 'expo-google-app-auth';
-import firebase from 'firebase'
+import firebase from 'firebase';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
@@ -32,7 +32,7 @@ export default class Profile extends Component {
       for (var i = 0; i < providerData.length; i++) {
         if (
           providerData[i].providerId ===
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
           providerData[i].uid === googleUser.getBasicProfile().getId()
         ) {
           // We don't need to reauth the Firebase connection.
@@ -43,9 +43,9 @@ export default class Profile extends Component {
     return false;
   };
 
-  onSignIn = googleUser => {
+  onSignIn = (googleUser) => {
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
-    var unsubscribe = firebase.auth().onAuthStateChanged(firebaseUser => {
+    var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
       unsubscribe();
       // Check if we are already signed-in Firebase with the correct user.
       if (!this.isUserEqual(googleUser, firebaseUser)) {
@@ -63,19 +63,19 @@ export default class Profile extends Component {
             if (result.additionalUserInfo.isNewUser) {
               firebase
                 .database()
-                .ref("/users/" + result.user.uid)
+                .ref('/users/' + result.user.uid)
                 .set({
                   gmail: result.user.email,
                   profile_picture: result.additionalUserInfo.profile.picture,
                   locale: result.additionalUserInfo.profile.locale,
                   first_name: result.additionalUserInfo.profile.given_name,
                   last_name: result.additionalUserInfo.profile.family_name,
-                  current_theme: "dark"
+                  current_theme: 'dark',
                 })
-                .then(function (snapshot) { });
+                .then(function (snapshot) {});
             }
           })
-          .catch(error => {
+          .catch((error) => {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -86,7 +86,7 @@ export default class Profile extends Component {
             // ...
           });
       } else {
-        console.log("User already signed-in Firebase.");
+        console.log('User already signed-in Firebase.');
       }
     });
   };
@@ -94,15 +94,15 @@ export default class Profile extends Component {
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
-        behaviour: "web",
+        behaviour: 'web',
         androidClientId:
-          "974162882599-h5824uhk8ia0aoftue8lc3is7fbvnmm4.apps.googleusercontent.com",
+          '346365833111-vk5cop48sqd3l3ph9fiaq37vdr57mcfi.apps.googleusercontent.com',
         iosClientId:
-          "974162882599-8jeisdlet6tefau5r1ks64j5el9udbia.apps.googleusercontent.com",
-        scopes: ["profile", "email"]
+          '346365833111-fplghvns5on18h2ttule22sqnht7tosm.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
       });
 
-      if (result.type === "success") {
+      if (result.type === 'success') {
         this.onSignIn(result);
         return result.accessToken;
       } else {
@@ -114,7 +114,7 @@ export default class Profile extends Component {
     }
   };
   render() {
-     if (!this.state.fontLoaded) {
+    if (!this.state.fontLoaded) {
       return <AppLoading />;
     }
     return (
@@ -123,15 +123,15 @@ export default class Profile extends Component {
           style={styles.iconImage}
           source={require('../assets/logo.png')}
         />
-        <Text style={styles.text}>story telling app</Text>
-        <TouchableOpacity onPress={this.signInWithGoogleAsync}>
-          <View style={styles.loginBox}>
-            <Image
-              style={styles.loginIcon}
-              source={require('../assets/google_icon.png')}
-            />
-            <Text style={styles.loginText}> sigin with google</Text>
-          </View>
+        <Text style={styles.text}> story telling app</Text>
+        <TouchableOpacity
+          style={styles.loginBox}
+          onPress={() => this.signInWithGoogleAsync()}>
+          <Image
+            style={styles.loginIcon}
+            source={require('../assets/google_icon.png')}
+          />
+          <Text style={styles.loginText}>signin with google</Text>
         </TouchableOpacity>
         <Image
           style={styles.bottomImage}

@@ -3,10 +3,10 @@ import { Text, View } from 'react-native';
 import firebase from 'firebase'
 
 export default class Logout extends Component {
+componentDidMount(){
+  firebase.auth().signOut()
+}
 
-  componentDidMount(){
-    firebase.auth().signOut();
-  }
     render() {
         return (
             <View
@@ -15,7 +15,7 @@ export default class Logout extends Component {
                     justifyContent: "center",
                     alignItems: "center"
                 }}>
-                <Text> logout </Text>
+                <Text>Profile</Text>
             </View>
         )
     }

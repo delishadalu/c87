@@ -1,27 +1,28 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import DrawerNavigator from "./navigation/DrawerNavigator";
-import Loading from './screens/loadingScreen'
+import Loading from './screens/loading'
 import Login from './screens/login'
-import Dashboard from './screens/dashBoard'
+import DashBoard from './screens/dashBoard'
 import {createSwitchNavigator,createAppContainer} from 'react-navigation'
-import firebase from 'firebase'
 import {firebaseConfig} from './config'
+import firebase from 'firebase'
 
-if(!firebase.apps.length)
-firebase.initializeApp(firebaseConfig);
-else firebase.app()
+if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig);
+}
+
+
 
 export default function App() {
   return (
-   <AppContainer />
+    <AppContainer />
   );
 }
 
-const SwitchNavigator =createSwitchNavigator({
+const SwitchNavigator = createSwitchNavigator({
   Loading:Loading,
   Login:Login,
-  Dashboard:Dashboard
+  DashBoard:DashBoard
 })
 
-const AppContainer =createAppContainer(SwitchNavigator)
+const AppContainer = createAppContainer(SwitchNavigator)
